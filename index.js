@@ -6,15 +6,6 @@
 
 const BME280 = require('bme280-sensor')
 
-// The BME280 constructor options are optional.
-//
-const options = {
-  i2cBusNo   : 1, // defaults to 1
-  i2cAddress : BME280.BME280_DEFAULT_I2C_ADDRESS() // defaults to 0x77
-};
-
-const bme280 = new BME280(options);
-
 module.exports = function (app) {
   let timer = null
   let plugin = {}
@@ -36,7 +27,17 @@ module.exports = function (app) {
         title: 'SignalK Path',
         description: 'This is used to build the path in Signal K. It will be appended to \'environment\'',
         default: 'inside.salon'
-      }
+      },
+      i2c_bus: {
+        type: 'integer',
+        title: 'I2C bus number',
+        default: 1,
+      },
+      i2c_address: {
+        type: 'string',
+        title: 'I2C address',
+        default: '0x77',
+      },
     }
   }
 
@@ -67,6 +68,15 @@ module.exports = function (app) {
         ]
       }
     }
+
+    // The BME280 constructor options are optional.
+    //
+    const bmeoptions = {
+      i2cBusNo   : options.i2c_bus || 1, // defaults to 1
+      i2cAddress : Number(options.i2c_address || '0x77'), // defaults to 0x77
+    };
+
+    const bme280 = new BME280(bmeoptions);
 
     // Read BME280 sensor data
     function readSensorData() {
