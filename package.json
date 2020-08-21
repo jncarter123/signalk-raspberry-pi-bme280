@@ -1,7 +1,7 @@
 {
   "name": "signalk-raspberry-pi-bme280",
   "author": "Jeremy Carter",
-  "description": "SignalK node server plugin that reads data from bme280 temperature/humidity/barometer sensors on Raspberry-Pi",
+  "description": "SignalK node server plugin that reads data from bme280/bmp280 temperature/humidity/barometer sensors on Raspberry-Pi",
   "license": "MIT",
   "homepage": "https://github.com/jncarter123/signalk-raspberry-pi-bme280#readme",
   "version": "1.1.0",

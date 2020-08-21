@@ -1,8 +1,8 @@
 # signalk-raspberry-pi-bme280
-BME-280 temperature, humidity, and pressure sensor information for SignalK. This plugin can be downloaded via the SignalK application.
+BME-280/BMP-280 temperature, pressure and humidity (BME only) sensor information for SignalK. This plugin can be downloaded via the SignalK application.
 
 ## Getting Started
-You will need a raspberry pi with SignalK installed along with a BME280 sensor.
+You will need a raspberry pi with SignalK installed along with a BME280 or BMP280 sensor.
 
 ### The BME280 sensor
 Personally I am using the sensor found at the following link on Amazon. However there are many manufacturers to pick from. I liked the form factor and cable harness of this one.
