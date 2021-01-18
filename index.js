@@ -44,6 +44,25 @@ module.exports = function (app) {
   plugin.start = function (options) {
     
     function createDeltaMessage (temperature, humidity, pressure) {
+      var values = [
+        {
+          'path': 'environment.' + options.path + '.temperature',
+          'value': temperature
+        }, {
+          'path': 'environment.' + options.path + '.pressure',
+          'value': pressure
+        }
+      ];
+
+      // BMP280 will read 0 as it has no humidity sensor
+      if (humidity > 0) {
+        values.push(
+          {
+            'path': 'environment.' + options.path + '.humidity',
+            'value': humidity
+	  });
+      }
+
       return {
         'context': 'vessels.' + app.selfId,
         'updates': [
@@ -52,18 +71,7 @@ module.exports = function (app) {
               'label': plugin.id
             },
             'timestamp': (new Date()).toISOString(),
-            'values': [
-              {
-                'path': 'environment.' + options.path + '.temperature',
-                'value': temperature
-              }, {
-                'path': 'environment.' + options.path + '.humidity',
-                'value': humidity
-              }, {
-                'path': 'environment.' + options.path + '.pressure',
-                'value': pressure
-              }
-            ]
+            'values': values
           }
         ]
       }
