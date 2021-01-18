@@ -85,7 +85,7 @@ module.exports = function (app) {
         // temperature_C, pressure_hPa, and humidity are returned by default.
         temperature = data.temperature_C + 273.15;
         pressure = data.pressure_hPa * 100;
-        humidity = data.humidity;
+        humidity = data.humidity / 100;
 
         //console.log(`data = ${JSON.stringify(data, null, 2)}`);
 
