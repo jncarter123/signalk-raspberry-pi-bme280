@@ -11,8 +11,8 @@ module.exports = function (app) {
   let plugin = {}
 
   plugin.id = 'signalk-raspberry-pi-bme280'
-  plugin.name = 'Raspberry-Pi BME280'
-  plugin.description = 'BME280 temperature sensors on Raspberry-Pi'
+  plugin.name = 'Raspberry-Pi BME280/BMP280'
+  plugin.description = 'BME280/BMP280 temperature sensors on Raspberry-Pi'
 
   plugin.schema = {
     type: 'object',
@@ -42,7 +42,7 @@ module.exports = function (app) {
   }
 
   plugin.start = function (options) {
-    
+
     function createDeltaMessage (temperature, humidity, pressure) {
       var values = [
         {
