@@ -17,6 +17,6 @@
     "url": "https://github.com/jncarter123/signalk-raspberry-pi-bme280/issues"
   },
   "dependencies": {
-    "bme280-sensor": "0.1.6"
+    "bme280-sensor": "0.1.7"
   }
 }
