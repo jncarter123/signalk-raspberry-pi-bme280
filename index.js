@@ -43,7 +43,7 @@ module.exports = function (app) {
 
   plugin.start = function (options) {
 
-    function createDeltaMessage (temperature, humidity, pressure) {
+    function createDeltaMessage (temperature, humidity, pressure, dewPoint) {
       var values = [
         {
           'path': 'environment.' + options.path + '.temperature',
@@ -60,7 +60,12 @@ module.exports = function (app) {
           {
             'path': 'environment.' + options.path + '.humidity',
             'value': humidity
-	  });
+          });
+        values.push(
+          {
+            'path': 'environment.' + options.path + '.dewPointTemperature',
+            'value': dewPoint
+          });
       }
 
       return {
@@ -75,6 +80,14 @@ module.exports = function (app) {
           }
         ]
       }
+    }
+
+    function calculateDewpoint(temperature, humidity){
+      const b = 18.678
+      const c = 257.14
+      var magnus = Math.log(humidity) + b * temperature / (c + temperature)
+      var dewPoint = c * magnus / (b - magnus) + 273.16
+      return dewPoint
     }
 
     // The BME280 constructor options are optional.
@@ -94,11 +107,12 @@ module.exports = function (app) {
         temperature = data.temperature_C + 273.15;
         pressure = data.pressure_hPa * 100;
         humidity = data.humidity / 100;
+        dewPoint = calculateDewpoint(data.temperature_C, humidity);
 
         //console.log(`data = ${JSON.stringify(data, null, 2)}`);
 
         // create message
-        var delta = createDeltaMessage(temperature, humidity, pressure)
+        var delta = createDeltaMessage(temperature, humidity, pressure, dewPoint)
 
         // send temperature
         app.handleMessage(plugin.id, delta)
