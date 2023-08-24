@@ -58,12 +58,12 @@ module.exports = function (app) {
       if (humidity > 0) {
         values.push(
           {
-            'path': 'environment.' + options.path + '.humidity',
+            'path': 'environment.' + options.path + '.relativeHumidity',
             'value': humidity
           });
         values.push(
           {
-            'path': 'environment.' + options.path + '.dewPointTemperature',
+            'path': 'environment.' + options.path + '.dewPoint',
             'value': dewPoint
           });
       }
